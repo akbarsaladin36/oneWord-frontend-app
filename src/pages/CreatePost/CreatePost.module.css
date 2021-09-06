@@ -1,0 +1,13 @@
+.submit_button {
+  background-color: black !important;
+  color: white !important;
+  border-color: black !important;
+  width: 100%;
+}
+
+.submit_button:hover {
+  background-color: white !important;
+  color: black !important;
+  border-color: black !important;
+  width: 100%;
+}

@@ -1,0 +1,8 @@
+.post_detail_message_paragraph {
+  text-align: justify;
+  line-height: 35px;
+}
+
+.comment_form_width {
+  width: 50% !important;
+}

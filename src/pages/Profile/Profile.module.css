@@ -1,0 +1,8 @@
+.image-upload > input {
+  display: none;
+}
+
+.profile_picture_size {
+  width: 250px;
+  height: 250px;
+}

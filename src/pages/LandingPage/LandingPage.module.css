@@ -1,0 +1,24 @@
+.header_text_position_1 {
+  line-height: 50px !important;
+  text-align: justify;
+}
+
+.header_text_position_2 {
+  line-height: 50px !important;
+  text-align: justify;
+}
+
+.left_home_image_1 {
+  width: 500px;
+}
+
+.left_home_image_2 {
+  width: 500px;
+  margin-left: 100px;
+}
+
+.line_border_1 {
+  height: 300px;
+  background-color: black;
+  color: black;
+}
