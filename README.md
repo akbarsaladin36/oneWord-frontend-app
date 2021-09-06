@@ -1,10 +1,10 @@
-<h1 align='center'>React JS - NgobrolMaya Realtime Chat App</h1>
+<h1 align='center'>React JS - OneWord Blog App</h1>
   <p align="center">
     <a href="#link_demo">View Demo</a>
     ·
-    <a href="https://github.com/akbarsaladin36/NgobrolMaya-realtime-chat-frontend/issues">Report Bug</a>
+    <a href="https://github.com/akbarsaladin36/oneWord-frontend-app/issues">Report Bug</a>
     ·
-    <a href="https://github.com/akbarsaladin36/NgobrolMaya-realtime-chat-frontend/pulls">Request Feature</a>
+    <a href="https://github.com/akbarsaladin36/oneWord-frontend-app/pulls">Request Feature</a>
   </p>
 
 ![Image Banner](#gambar_public)
