@@ -6,7 +6,7 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { oneUser, updateUserProfile } from "../../redux/actions/user";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import DefaultPostPicture from "../../assets/default-post-image.jpg";
+// import DefaultPostPicture from "../../assets/default-post-image.jpg";
 import styles from "./Profile.module.css";
 require("dotenv").config();
 

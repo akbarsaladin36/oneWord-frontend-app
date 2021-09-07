@@ -10,6 +10,7 @@ import {
   getAllComment,
 } from "../../redux/actions/post";
 import styles from "./PostDetail.module.css";
+import DefaultPostPicture from "../../assets/default-post-image.jpg";
 
 function PostDetail(props) {
   const post = useSelector((state) => state.post.dataOnePost);
@@ -96,6 +97,15 @@ function PostDetail(props) {
             </Button>
           </Col>
         </Row>
+        <img
+          src={
+            postItem.posts_image
+              ? `${process.env.REACT_APP_IMAGE_API_URL}${postItem.posts_image}`
+              : DefaultPostPicture
+          }
+          className={`${styles.img_post_detail_thumbnail} mt-3`}
+          alt="post thumbnail"
+        />
         <p className={`${styles.post_detail_message_paragraph} mt-3`}>
           {postItem.posts_message}
         </p>

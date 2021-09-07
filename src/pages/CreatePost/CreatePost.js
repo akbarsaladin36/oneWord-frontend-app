@@ -15,16 +15,17 @@ function CreatePost() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [keywords, setKeywords] = useState("");
+  const [imagePost, setImagePost] = useState("");
+  const [imagePostPreview, setImagePostPreview] = useState(null);
 
   const handleSubmitPost = (event) => {
     event.preventDefault();
-    dispatch(
-      createPost({
-        postTitle: title,
-        postMessage: message,
-        postKeywords: keywords,
-      })
-    )
+    const formData = new FormData();
+    formData.append("postTitle", title);
+    formData.append("imageFile", imagePost);
+    formData.append("postMessage", message);
+    formData.append("postKeywords", keywords);
+    dispatch(createPost(formData))
       .then((res) => {
         console.log(res);
         setTimeout(() => {
@@ -48,6 +49,13 @@ function CreatePost() {
     setKeywords(event.target.value);
   };
 
+  const imagePostUpload = (event) => {
+    // const URL1 = window.webkitURL;
+    const file = event.target.files[0];
+    setImagePost(file);
+    setImagePostPreview(URL.createObjectURL(file));
+  };
+
   return (
     <div>
       <Navbar />
@@ -61,6 +69,19 @@ function CreatePost() {
               value={title}
               onChange={(event) => changeTitle(event)}
               placeholder="Enter your post title"
+            />
+          </Form.Group>
+          {imagePostPreview && (
+            <img
+              src={imagePostPreview}
+              alt="post preview thumbnail"
+              className={styles.img_post_thumbnail}
+            />
+          )}
+          <Form.Group controlId="formFile" className="mb-3 mt-3">
+            <Form.Control
+              type="file"
+              onChange={(event) => imagePostUpload(event)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">

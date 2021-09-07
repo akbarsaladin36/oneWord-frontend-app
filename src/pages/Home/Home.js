@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { allPosts, deletePost } from "../../redux/actions/post";
 import DefaultPostPicture from "../../assets/default-post-image.jpg";
+require("dotenv").config();
 
 function Home() {
   const post = useSelector((state) => state.post.data);
@@ -61,7 +62,14 @@ function Home() {
             post.map((item, index) => (
               <Col className="mt-5" key={index}>
                 <Card style={{ width: "18rem" }}>
-                  <Card.Img variant="top" src={DefaultPostPicture} />
+                  <Card.Img
+                    variant="top"
+                    src={
+                      item.posts_image
+                        ? `${process.env.REACT_APP_IMAGE_API_URL}${item.posts_image}`
+                        : DefaultPostPicture
+                    }
+                  />
                   <Card.Body>
                     <Card.Title>{item.posts_title}</Card.Title>
                     <Card.Text>{item.posts_message}</Card.Text>

@@ -1,31 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Form, Button } from "react-bootstrap";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import { updatePost } from "../../redux/actions/post";
+import { onePost, updatePost } from "../../redux/actions/post";
 import styles from "./UpdatePost.module.css";
+require("dotenv").config();
 
-function UpdatePost(props) {
-  const onePost = useSelector((state) => state.post.dataOnePost);
+function UpdatePost() {
+  const { id } = useParams();
+  const postDetail = useSelector((state) => state.post.dataOnePost);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [title, setTitle] = useState(onePost.posts_title);
-  const [message, setMessage] = useState(onePost.posts_message);
-  const [keywords, setKeywords] = useState(onePost.posts_keywords);
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [keywords, setKeywords] = useState("");
+  const [imagePost, setImagePost] = useState("");
+  const [imagePostPreview, setImagePostPreview] = useState(null);
+
+  useEffect(() => {
+    getPostById(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getPostById = (id) => {
+    dispatch(onePost(id))
+      .then((res) => {
+        console.log(res);
+        setTitle(res.action.payload.data.data[0].posts_title);
+        setMessage(res.action.payload.data.data[0].posts_message);
+        setKeywords(res.action.payload.data.data[0].posts_keywords);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
 
   const handleUpdatePost = (event) => {
     event.preventDefault();
-    const id = props.match.params.id;
-    dispatch(
-      updatePost(id, {
-        postTitle: title,
-        postMessage: message,
-        postKeywords: keywords,
-      })
-    )
+    const formData = new FormData();
+    formData.append("postTitle", title);
+    formData.append("imageFile", imagePost);
+    formData.append("postMessage", message);
+    formData.append("postKeywords", keywords);
+    dispatch(updatePost(id, formData))
       .then((res) => {
         console.log(res);
         setTimeout(() => {
@@ -49,6 +70,13 @@ function UpdatePost(props) {
     setKeywords(event.target.value);
   };
 
+  const imagePostUpload = (event) => {
+    // const URL1 = window.webkitURL;
+    const file = event.target.files[0];
+    setImagePost(file);
+    setImagePostPreview(URL.createObjectURL(file));
+  };
+
   return (
     <div>
       <Navbar />
@@ -62,6 +90,19 @@ function UpdatePost(props) {
               value={title}
               onChange={(event) => changeTitle(event)}
               placeholder="Enter your post title"
+            />
+          </Form.Group>
+          {imagePostPreview && (
+            <img
+              src={imagePostPreview}
+              alt="post preview thumbnail"
+              className={styles.img_post_thumbnail}
+            />
+          )}
+          <Form.Group controlId="formFile" className="mb-3 mt-3">
+            <Form.Control
+              type="file"
+              onChange={(event) => imagePostUpload(event)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">

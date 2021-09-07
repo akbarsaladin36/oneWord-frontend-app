@@ -1,3 +1,7 @@
+.img_post_detail_thumbnail {
+  width: 650px;
+}
+
 .post_detail_message_paragraph {
   text-align: justify;
   line-height: 35px;

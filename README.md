@@ -11,7 +11,7 @@
 
 ## About The Project
 
-Oneword Blog App is personal project that inspired from blog app like Blogger from Google. This app is created with React as frontend, Node.js as backend, and MySQL as database store.
+Oneword Blog App is personal project that inspired from blog app like Blogger from Google and Medium. This app is created with React as frontend, Node.js as backend, and MySQL as database store.
 
 ## Built With
 
