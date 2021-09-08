@@ -17,6 +17,8 @@ function CreatePost() {
   const [keywords, setKeywords] = useState("");
   const [imagePost, setImagePost] = useState("");
   const [imagePostPreview, setImagePostPreview] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleSubmitPost = (event) => {
     event.preventDefault();
@@ -27,13 +29,17 @@ function CreatePost() {
     formData.append("postKeywords", keywords);
     dispatch(createPost(formData))
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        setIsSuccess(res.action.payload.data.msg);
+        setIsError(false);
         setTimeout(() => {
           history.push("/home");
         }, 3000);
       })
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response);
+        setIsError(err.response.data.msg);
+        setIsSuccess(false);
       });
   };
 
@@ -61,6 +67,16 @@ function CreatePost() {
       <Navbar />
       <Container>
         <h1 className="mt-5 pt-5">Create Post</h1>
+        {isSuccess && (
+          <div className="alert alert-success mt-5" role="alert">
+            {isSuccess}
+          </div>
+        )}
+        {isError && (
+          <div className="alert alert-danger mt-5" role="alert">
+            {isError}
+          </div>
+        )}
         <Form className="mt-5" onSubmit={handleSubmitPost}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Title</Form.Label>

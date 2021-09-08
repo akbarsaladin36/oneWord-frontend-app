@@ -15,6 +15,8 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const changeEmail = (event) => {
     setEmail(event.target.value);
@@ -28,16 +30,22 @@ function Login() {
     event.preventDefault();
     dispatch(login({ userEmail: email, userPassword: password }))
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         localStorage.setItem("token", res.action.payload.data.data.token);
         localStorage.setItem("user", res.action.payload.data.data.user_id);
         localStorage.setItem("loginStatus", auth.isLogin);
-        history.push("/home");
+        setIsSuccess(res.action.payload.data.msg);
+        setIsError(false);
+        setTimeout(() => {
+          history.push("/home");
+        }, 3000);
         setEmail("");
         setPassword("");
       })
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response);
+        setIsError(err.response.data.msg);
+        setIsSuccess(false);
         setEmail("");
         setPassword("");
       });
@@ -75,6 +83,16 @@ function Login() {
             <div className="float-end">
               <p>Forgot Password ?</p>
             </div>
+            {isSuccess && (
+              <div className="alert alert-success mt-5" role="alert">
+                {isSuccess}
+              </div>
+            )}
+            {isError && (
+              <div className="alert alert-danger mt-5" role="alert">
+                {isError}
+              </div>
+            )}
             <Button
               variant="primary"
               className={styles.sign_in_button}

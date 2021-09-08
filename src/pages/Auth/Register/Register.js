@@ -15,6 +15,8 @@ function Register() {
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -22,14 +24,20 @@ function Register() {
       register({ userName: username, userEmail: email, userPassword: password })
     )
       .then((res) => {
-        console.log(res);
-        history.push("/login");
+        // console.log(res);
+        setIsSuccess(res.action.payload.data.msg);
+        setIsError(false);
+        setTimeout(() => {
+          history.push("/login");
+        }, 3000);
         setUserName("");
         setEmail("");
         setPassword("");
       })
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response);
+        setIsError(err.response.data.msg);
+        setIsSuccess(false);
       });
   };
 
@@ -81,6 +89,16 @@ function Register() {
                 placeholder="Enter new password"
               />
             </Form.Group>
+            {isSuccess && (
+              <div className="alert alert-success mt-5" role="alert">
+                {isSuccess}
+              </div>
+            )}
+            {isError && (
+              <div className="alert alert-danger mt-5" role="alert">
+                {isError}
+              </div>
+            )}
             <Button
               variant="primary"
               className={`${styles.sign_up_button} mt-3`}

@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { allPosts, deletePost } from "../../redux/actions/post";
+import styles from "./Home.module.css";
 import DefaultPostPicture from "../../assets/default-post-image.jpg";
 require("dotenv").config();
 
@@ -69,6 +70,7 @@ function Home() {
                         ? `${process.env.REACT_APP_IMAGE_API_URL}${item.posts_image}`
                         : DefaultPostPicture
                     }
+                    className={styles.img_posts_thumbnail_size}
                   />
                   <Card.Body>
                     <Card.Title>{item.posts_title}</Card.Title>

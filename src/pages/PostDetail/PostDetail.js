@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -13,6 +13,7 @@ import styles from "./PostDetail.module.css";
 import DefaultPostPicture from "../../assets/default-post-image.jpg";
 
 function PostDetail(props) {
+  const { id } = useParams();
   const post = useSelector((state) => state.post.dataOnePost);
   const commentDetail = useSelector((state) => state.post.dataComment);
   const dispatch = useDispatch();
@@ -29,7 +30,6 @@ function PostDetail(props) {
   }, []);
 
   const handlePostDetail = () => {
-    const id = props.match.params.id;
     dispatch(onePost(id))
       .then((res) => {
         // console.log(res);
@@ -41,7 +41,6 @@ function PostDetail(props) {
   };
 
   const handleCommentDetail = () => {
-    const id = props.match.params.id;
     dispatch(getAllComment(id))
       .then((res) => {
         // console.log(res);
@@ -54,7 +53,6 @@ function PostDetail(props) {
 
   const handleCommentSubmit = (event) => {
     event.preventDefault();
-    const id = props.match.params.id;
     dispatch(
       createComment(id, {
         postId: post.posts_id,
